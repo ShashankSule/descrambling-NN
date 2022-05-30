@@ -1,7 +1,8 @@
+function regnet = regnetconverter(net, inputdim)
 %% create nn for initialization 
 % net = load(...) 
-training_x = randn(128,10);
-training_y = randn(2,10);
+training_x = randn(inputdim,1);
+training_y = randn(2,1);
 layernames = fieldnames(net); 
 layers = [...
           sequenceInputLayer(size(training_x,1), 'Name', 'input')
@@ -50,14 +51,15 @@ options = trainingOptions('adam', ...
     'SequenceLength','longest', ...
     'Shuffle','never', ...
     'Verbose',0, ...
-    'Plots','training-progress');
+    'Plots','none');
 regnet = trainNetwork(training_x, training_y, layers, options); 
 
-%% propagate data
-w = regnet.Layers(2).Weights; 
-[L, R] = size(w); 
-imagesc(abs(recentered_dft(L)'*w*recentered_dft(R)))
+% %% propagate data
+% w = regnet.Layers(2).Weights; 
+% [L, R] = size(w); 
+% imagesc(abs(recentered_dft(L)'*w*recentered_dft(R)))
 %% helpers 
 function M = recentered_dft(N) 
     M = diag(exp(1i*pi*(0:N-1)))*dftmtx(N);
+end
 end

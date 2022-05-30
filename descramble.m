@@ -57,8 +57,9 @@ else
     guess=guess(lt_idx);
 end
    
-% Get second derivative operator
-[~,D]=fourdif(out_dim,1);
+% Get derivative operator
+% [~,D]=fourdif(out_dim,1);
+D = finitediff(out_dim,1);
 
 % Precompute some steps, scale, and move to GPU
 % SST=gpuArray(S*S'); 
@@ -107,7 +108,7 @@ fun = @reg_sig;
 %disp('Pause now')
 %pause(3)
 % Optimisation
-options=optimoptions('fmincon','Algorithm','interior-point','Display','iter',...
+options=optimoptions('fmincon','Algorithm','interior-point','Display','off',...
                      'MaxIterations',n_iter,'MaxFunctionEvaluations',inf,...
                      'FiniteDifferenceType','central','CheckGradients',false,...
                      'SpecifyObjectiveGradient',true,'HessianApproximation',...
@@ -209,8 +210,19 @@ function [x, DM] = fourdif(N,m)
     DM=toeplitz(col1,row1);
 end
 
-
-      
+function D = finitediff(N, d)
+%% Compute circular finite differences of X 
+if d == 1
+    [~,fy] = gradient(eye(N+2)); 
+    D = fy(2:N+1, 2:N+1); 
+    D(1,end) = -0.5; 
+    D(end,1) = 0.5; 
+    D = (1/N)*D; 
+else
+    Dd = finitediff(N,1); 
+    D = Dd^d;
+end
+end
 % =======================
 % Dear ###,
 % 
