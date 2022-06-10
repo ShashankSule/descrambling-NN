@@ -11,7 +11,7 @@ function P = regnetdescrambler(regnet, data, L, pics)
 % if nargin < 4
 %     pics = true;
 % end
-L = 2;
+L = 4;
 % L = 4; 
 if mod(L,2) ~= 0 
     fprintf('Outermost layer should be affine'); 
@@ -37,7 +37,7 @@ options = trainingOptions('adam', ...
     'Plots','none');
 tappednet = trainNetwork(training_x, training_y, tapped_layers, options);
 %% descramble! 
-% S = tappednet.predict(randn(128,2.5e4));
+% S = tappednet.predict(randn(64,2.5e4));
 S = tappednet.predict(data'); 
 [P,~] = descramble(S,1000); 
 
@@ -81,12 +81,12 @@ end
 figure(2)
 tiledlayout(yy,xx); 
 nexttile
-imagesc(abs(recentered_dft(l)*w*recentered_dft(r).')); 
+imagesc(abs(dftmtx(l)*w*dftmtx(r).')); 
 title("FFT Weights: Raw", 'FontSize', 20); 
 xlabel("Input index", 'FontSize', 20); 
 ylabel("Output index", 'FontSize', 20); 
 nexttile
-imagesc(abs(recentered_dft(l)*P*w*recentered_dft(r).')); 
+imagesc(abs(dftmtx(l)*P*w*dftmtx(r).')); 
 title(["FFT Weights:";"Descrambled"], 'FontSize', 20); 
 xlabel("Input index", 'FontSize', 20); 
 ylabel("Output index", 'FontSize', 20); 
@@ -176,7 +176,7 @@ end
 
 %% helpers 
 function M = recentered_dft(N) 
-    M = diag(exp(1i*pi*(N-1)*(1/N)*(0:N-1)))*dftmtx(N);
+    M = diag(exp(1i*pi*(0:N-1)))*dftmtx(N);
 end
 
 end
