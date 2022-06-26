@@ -12,4 +12,4 @@ for file in files:
     #                                                    "w3": model['hidden2.weight'].numpy(), 
     #                                                    "w4": model['hidden3.weight'].numpy(),
     #                                                    "w5": model['outputMap.weight'].numpy()})
-    torch.onnx.export(model, torch.empty((2,3)), os.getcwd()+'/matdata/'+file[:-4]+'.onnx')
+    savemat(os.getcwd()+'/matdata/'+file[:-4]+'.mat', model)

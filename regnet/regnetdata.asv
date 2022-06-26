@@ -1,5 +1,5 @@
 %% generate data for the SNR 900 lambda neg 4 regnet
-net = load(strcat(pwd(), '/matdata/Week12_SNR1_lambdaneg4_NDNDvNDB_NN_Week12_NDBPE_minMetric2.mat'));
+net = load(strcat(pwd(), '/matdata/Week12_SNR10000_lambdaneg4_NDNDvNDB_NN_Week12_NDBPE_minMetric2.mat'));
 data = load(strcat(pwd(), '/_results/_dataSets/_snr900/Week12_SNR900_lambdaneg4_NDNDvNDB_ValidationData.mat'));
 data = data.data(:,1:128); 
 regnet = regnetconverter(net,128); 
@@ -10,8 +10,8 @@ for i=1:4
     descramblers{i} = regnetdescrambler(regnet, data, L, true);
 end
 %% analyze two copies of trained nets 
-ndb = load(strcat(pwd(), '/matdata/Week12_SNR1_lambdaneg4_NDNDvNDB_NN_Week12_NDBPE_minMetric2.mat'));
-ndnd = load(strcat(pwd(), '/matdata/Week9_SNR1_lambdaneg1_NDNDvNDB_NN_Week9_NDND_NoDiscardPE_minMetric2.mat'));
+ndb = load(strcat(pwd(), 'Week12_SNR900_lambdaneg4_NDNDvNDB_NN_Week12_BPE_minMetric2.mat'));
+ndnd = load(strcat(pwd(), '/matdata/Week9_SNR10000_lambdaneg1_NDNDvNDB_NN_Week8_NDND_NoDiscardPE_minMetric (3)2.mat'));
 %% compute singular values of each weight matrix
 layernames = fieldnames(ndb); 
 ndbsvd = struct();
