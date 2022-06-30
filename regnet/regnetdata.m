@@ -32,7 +32,7 @@ end
 %% plot them svd's! 
 for i=1:5
     figure(i)
-    tiledlayout(1,2); 
+    tiledlayout(1,3); 
     nexttile 
     plot(diag(ndbsvd(i).Sigma), 'bo-'); 
     hold on; 
@@ -40,9 +40,15 @@ for i=1:5
     xlabel("Index", 'FontSize', 20); 
     ylabel("Singular value", 'FontSize', 20); 
     layername = strcat(num2str(i), "th layer"); 
-    title(strcat("Singular values:", layername), 'FontSize', 20); 
+    title(strcat("Singular values: ", layername), 'FontSize', 20); 
     nexttile
-    plot(ndbsvd(i).V(:,2), 'bo-'); 
-    hold on;
-    plot(ndndsvd(i).V(:,2), 'ro-'); 
+    plot(ndbsvd(i).V(:,1:2), 'o-'); 
+    title("(ND,Reg)", 'FontSize', 20); 
+    legend('First singular vector', 'Second singular vector');
+    nexttile
+    plot(ndndsvd(i).V(:,1:2), 'o-'); 
+    title("(ND,ND)", 'FontSize',20); 
+    legend('First singular vector', 'Second singular vector'); 
+    set(gcf, 'units', 'inches', 'position', [0.5,0.5,12,10]);
+    saveas(gcf, strcat(num2str(i), '_1.png'))
 end
