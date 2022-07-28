@@ -49,7 +49,7 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 #Insert Signal to Noise To Be Tested
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-SNR = 900.0
+SNR = 10000.0
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #Ensure either GPU or CPU is being used.  Alter cuda:(#) to ensure correct device is running
@@ -72,7 +72,7 @@ dataPurpose = 'Training'
 
 #Change file name with apropriate experiment title, SNR value, Training Range, Testing Range, 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-dataDescription = 'Week12_SNR900_lambdaneg4_NDNDvNDB'
+dataDescription = 'Week12_SNR10000_lambdaneg4_NDNDvNDB'
 
 #NDNDvNDB_Noise_And_Big_File_Jonathan_SNR_1__Training_Range_50_500_Test_75_475_L_10_neg1_NT_64_NLLS_constraints
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -98,7 +98,7 @@ if targetSelection is 'random':
 
     if dataPurpose is 'Training':
 
-        num_triplets, noise_realizations = 6250, 250
+        num_triplets, noise_realizations = 1000, 100
 
     elif dataPurpose is 'Validation':
 
@@ -120,7 +120,7 @@ elif targetSelection is 'exhaustive':
 
     if dataPurpose is 'Training':
 
-        noise_realizations = 250
+        noise_realizations = 100
 
     elif dataPurpose is 'Validation':
 
@@ -1218,25 +1218,24 @@ print('----  Finished!  ----')
 # In[9]: 
 
 ## convert to mat file: 
-SNR = 900
+# SNR = 10000
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #What is the name of your data?
-DATA_NAME = 'Week12_SNR900_lambdaneg3_NDNDvNDB_'
-DATA_DIR = './_results/_dataSets/_snr' + str(SNR) + '/'
-VALIDATION_DATA_PATH = DATA_DIR + DATA_NAME + 'ValidationData.csv'
-validation_dataset = initDataSet(INPUT_TYPE,
-
-                                     VALIDATION_DATA_PATH,
-
-                                     target_names,
-
-                                     time_bounds,
-
-                                     concat=num_copies,
-
-                                     decay_input=decay_inputs)
-validation_loader = DataLoader(validation_dataset,
-
-                                   batch_size=P['N_validation'])
-                                   
+# DATA_NAME = 'Week12_SNR10000_lambdaneg3_NDNDvNDB_'
+# DATA_DIR = './_results/_dataSets/_snr' + str(SNR) + '/'
+# VALIDATION_DATA_PATH = DATA_DIR + DATA_NAME + 'ValidationData.csv'
+# validation_dataset = initDataSet(INPUT_TYPE,
+# 
+#                                      VALIDATION_DATA_PATH,
+# 
+#                                      target_names,
+#
+#                                     time_bounds,
+#
+#                                     concat=num_copies,
+#
+#                                     decay_input=decay_inputs)
+#validation_loader = DataLoader(validation_dataset,
+#
+#                                   batch_size=P['N_validation']) 
