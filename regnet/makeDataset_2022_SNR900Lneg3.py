@@ -62,7 +62,8 @@ else:
 
 # Where should the data be saved?
 #Change the directory if needed to ensure folder setup is sufficient (see word doc on directory configuration)
-dataDir = './_results/_dataSets/_snr' + str(int(SNR)) + '/'
+dataDir = os.getcwd()+'/_results/_dataSets/_snr' + str(int(SNR)) + '/'
+print(dataDir)
 
 # Is the data used for Training, Testing, Validation, or otherwise?
 #Use key words Training, Testing, or Validation.  One of each should be run for each dataset.
@@ -98,7 +99,7 @@ if targetSelection is 'random':
 
     if dataPurpose is 'Training':
 
-        num_triplets, noise_realizations = 1000, 100
+        num_triplets, noise_realizations = 10, 10
 
     elif dataPurpose is 'Validation':
 
@@ -120,7 +121,7 @@ elif targetSelection is 'exhaustive':
 
     if dataPurpose is 'Training':
 
-        noise_realizations = 100
+        noise_realizations = 1
 
     elif dataPurpose is 'Validation':
 
