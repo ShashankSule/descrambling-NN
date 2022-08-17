@@ -99,7 +99,7 @@ if targetSelection is 'random':
 
     if dataPurpose is 'Training':
 
-        num_triplets, noise_realizations = 10, 10
+        num_triplets, noise_realizations = 100, 10
 
     elif dataPurpose is 'Validation':
 
@@ -121,7 +121,7 @@ elif targetSelection is 'exhaustive':
 
     if dataPurpose is 'Training':
 
-        noise_realizations = 1
+        noise_realizations = 100
 
     elif dataPurpose is 'Validation':
 
@@ -980,7 +980,7 @@ for (c_t, T21_t, T22_t), j in tqdm(target_iterator, total = len(range(0, num_tri
             
     # end for
 
-
+print(type(list_of_samples))
 training_data_frame = pd.concat(list_of_samples, ignore_index=True)
 print('hi!')
 
@@ -1000,44 +1000,44 @@ print('hi!')
 
 # import matplotlib.pyplot as plt
 
-# pd.set_option("display.max_rows", None, "display.max_columns", None)
+pd.set_option("display.max_rows", None, "display.max_columns", None)
 
-# Sums = training_data_frame["RNLLS_NLLS_Error_Sum"]
+Sums = training_data_frame["RNLLS_NLLS_Error_Sum"]
 
-# Maxes = training_data_frame["RNLLS_NLLS_Error_Max"]
+Maxes = training_data_frame["RNLLS_NLLS_Error_Max"]
 
-# print(f'The worst index from the loop is {worst_sample_idx}')
+print(f'The worst index from the loop is {worst_sample_idx}')
 
 # # max_index = Maxes.idxmax()
 
 # # print(max_index)
 
 
-# MaxRow = training_data_frame.iloc[worst_sample_idx, :]
+MaxRow = training_data_frame.iloc[worst_sample_idx, :]
 
-# print(MaxRow)
+print(MaxRow)
 
-# worst_c1_traj = MaxRow.loc["c1_traj"]
+worst_c1_traj = MaxRow.loc["c1_traj"]
 
-# worst_T21_traj = MaxRow.loc["T21_traj"]
+worst_T21_traj = MaxRow.loc["T21_traj"]
 
-# worst_T22_traj = MaxRow.loc["T22_traj"]
+worst_T22_traj = MaxRow.loc["T22_traj"]
 
-# worst_decay_error = MaxRow.loc["RNLLS_NLLS_Error_Max"]
+worst_decay_error = MaxRow.loc["RNLLS_NLLS_Error_Max"]
 
-# max_error, max_idx = torch.max(worst_decay_error, dim=0)
+max_error, max_idx = torch.max(worst_decay_error, dim=0)
 
-# if max_error == max_ptws_error:
-#     print(f'Successfully found worst sample in frame. Error: {max_error}')
+if max_error == max_ptws_error:
+    print(f'Successfully found worst sample in frame. Error: {max_error}')
 
-# else:
-#     print('Failed to find worst sample in frame')
+else:
+    print('Failed to find worst sample in frame')
 
-# WorstRNLLSdecay = myTrueModel_2param(time, worst_c1_traj[max_idx], 1.0 - worst_c1_traj[max_idx], worst_T21_traj[max_idx], worst_T22_traj[max_idx], signalType=mySignalType)
+WorstRNLLSdecay = myTrueModel_2param(time, worst_c1_traj[max_idx], 1.0 - worst_c1_traj[max_idx], worst_T21_traj[max_idx], worst_T22_traj[max_idx], signalType=mySignalType)
 
-# WorstNLLSdecay = myTrueModel_2param(time, MaxRow.loc["c1_nlls"], 1.0 - MaxRow.loc["c1_nlls"], MaxRow.loc["T21_nlls"], MaxRow.loc["T22_nlls"], signalType=mySignalType)
+WorstNLLSdecay = myTrueModel_2param(time, MaxRow.loc["c1_nlls"], 1.0 - MaxRow.loc["c1_nlls"], MaxRow.loc["T21_nlls"], MaxRow.loc["T22_nlls"], signalType=mySignalType)
 
-# WorstTruedecay = myTrueModel_2param(time, MaxRow.loc["c1_target"], 1.0 - MaxRow.loc["c1_target"], MaxRow.loc["T21_target"], MaxRow.loc["T22_target"], signalType=mySignalType)
+WorstTruedecay = myTrueModel_2param(time, MaxRow.loc["c1_target"], 1.0 - MaxRow.loc["c1_target"], MaxRow.loc["T21_target"], MaxRow.loc["T22_target"], signalType=mySignalType)
 
 # # Error per time
 
