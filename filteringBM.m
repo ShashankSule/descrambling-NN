@@ -12,8 +12,8 @@
 fs = 1024; % signal sampling rate
 training_x = normrnd(0,1,[fs,1e4]);
 training_y = bandpass(training_x, [10 50], fs); 
-training_x = gpuArray(training_x); 
-training_y = gpuArray(training_y); 
+% training_x = gpuArray(training_x); 
+% training_y = gpuArray(training_y); 
 %% Create network here
 
 % Use deep network designer to create layer object layer_1 
@@ -29,7 +29,7 @@ maxEpochs = 100;
 miniBatchSize = 512;
 
 options = trainingOptions('adam', ...
-    'ExecutionEnvironment','gpu', ...
+    'ExecutionEnvironment','cpu', ...
     'GradientThreshold',1, ...
     'MaxEpochs',maxEpochs, ...
     'MiniBatchSize',miniBatchSize, ...

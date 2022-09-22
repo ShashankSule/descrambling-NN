@@ -38,15 +38,17 @@ options = trainingOptions('adam', ...
 tappednet = trainNetwork(training_x, training_y, tapped_layers, options);
 %% descramble! 
 % S = tappednet.predict(randn(128,2.5e4));
-S = tappednet.predict(data'); 
-[P,~] = descramble(S,1000); 
+% S = tappednet.predict(ndbdata'); 
+[P,~] = descramble(S,1000);  
 
 %% propagate data
-w = tappednet.Layers(L).Weights; 
-% w = tappednet.predict(eye(128,32));
+L = 2;
+% w = tappednet.Layers(L).Weights; 
+% w = tappednet.predict(eye(128,32));W\W
 [l, r] = size(w); 
 %imagesc(abs(recentered_dft(l)'*P*w*recentered_dft(r)))
 %imagesc(P*w)
+% w = J; 
 if size(w,2) > size(w,1)
     xx = 1; 
     yy = 2;
@@ -54,8 +56,8 @@ else
    xx = 2; 
    yy = 1; 
 end
-% pics = false;
-pics = true; 
+pics = false;
+% pics = true; 
 figure(1); 
 tiledlayout(yy,xx)
 nexttile
@@ -68,7 +70,7 @@ imagesc(P*w);
 title("Weights: Descrambled", 'FontSize', 20); 
 xlabel("Input index", 'FontSize', 20); 
 ylabel("Output index", 'FontSize', 20); 
-colormap jet 
+colormap parula 
 c = colorbar;
 c.FontSize = 20;
 c.Layout.Tile = 'east';

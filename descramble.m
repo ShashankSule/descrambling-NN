@@ -108,7 +108,7 @@ fun = @reg_sig;
 %disp('Pause now')
 %pause(3)
 % Optimisation
-options=optimoptions('fmincon','Algorithm','interior-point','Display','off',...
+options=optimoptions('fmincon','Algorithm','interior-point','Display','iter',...
                      'MaxIterations',n_iter,'MaxFunctionEvaluations',inf,...
                      'FiniteDifferenceType','central','CheckGradients',false,...
                      'SpecifyObjectiveGradient',true,'HessianApproximation',...
@@ -210,8 +210,8 @@ function [x, DM] = fourdif(N,m)
     DM=toeplitz(col1,row1);
 end
 
-function D = finitediff(N, d)
 %% Compute circular finite differences of X 
+function D = finitediff(N, d)
 if d == 1
     [~,fy] = gradient(eye(N+2)); 
     D = fy(2:N+1, 2:N+1); 
