@@ -38,7 +38,7 @@ options = trainingOptions('adam', ...
 tappednet = trainNetwork(training_x, training_y, tapped_layers, options);
 %% descramble! 
 % S = tappednet.predict(randn(128,2.5e4));
-% S = tappednet.predict(ndbdata'); 
+S = tappednet.predict(ndbdata'); 
 [P,~] = descramble(S,1000);  
 
 %% propagate data

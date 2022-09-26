@@ -1,5 +1,5 @@
 %% generate data for the SNR 900 lambda neg 4 regnet
-net = load(strcat(pwd(), '/matdata/Week12_SNR10000_lambdaneg4_NDNDvNDB_NN_Week12_NDBPE_minMetric2.mat'));
+net = load(strcat(pwd(), '/matdata/Week12_SNR900_lambdaneg4_NDNDvNDB_NN_Week12_NDBPE_minMetric.mat'));
 data = load(strcat(pwd(), '/_results/_dataSets/_snr10000/Week12_SNR10000_lambdaneg4_NDNDvNDB_TrainingData.mat'));
 ndbdata = data.data(:,1:128); 
 ndnddata = [ndbdata(:, 1:64) ndbdata(:, 1:64)];
