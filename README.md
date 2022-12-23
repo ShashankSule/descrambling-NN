@@ -1,7 +1,7 @@
 # descrambling-NN
 
 This is the code repository for the paper "Emergence of the SVD as an interpretable factorization in deep learning for inverse problems" by Sule, Czaja, Spencer. To explore our code and figures, first download the data files into the requisite `/regnet/` and `/2_Layer_DeerNet/` folders from [here](https://umd.box.com/s/zul3iaq9x6u332nydsc6lo19uvote8ry). You will need MATLAB 2022a with the DeepLearning and Symbolic Computation toolboxes downloaded. 
-Additionally, if you wish to train a neural network, we recommend using Pytorch with preferable an NVIDIA GPU. 
+Additionally, if you wish to train a neural network, we recommend using Pytorch with preferably an NVIDIA GPU. 
 
 1. **DEERNet** We have trained shallow DEERNets with both ReLU and Sigmoid intermediate activations. You can access these networks, their tranining sets, and descrambler matrices by opening the `mat` files starting with `workspace...` downloaded from the above link to our data. 
 
