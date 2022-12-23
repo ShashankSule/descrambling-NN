@@ -39,11 +39,12 @@ tappednet = trainNetwork(training_x, training_y, tapped_layers, options);
 %% descramble! 
 % S = tappednet.predict(randn(128,2.5e4));
 S = tappednet.predict(ndbdata'); 
-[P,~] = descramble(S,1000);  
+[P,~] = descramble(S,10000);  
 
 %% propagate data
 L = 2;
-% w = tappednet.Layers(L).Weights; 
+w = tappednet.Layers(L).Weights; 
+w = w(:,65:128); % pick the nd half
 % w = tappednet.predict(eye(128,32));W\W
 [l, r] = size(w); 
 %imagesc(abs(recentered_dft(l)'*P*w*recentered_dft(r)))
@@ -59,6 +60,7 @@ end
 pics = false;
 % pics = true; 
 figure(1); 
+set(gca, 'FontSize', 20)
 tiledlayout(yy,xx)
 nexttile
 imagesc(w);
@@ -81,18 +83,19 @@ end
 % clf;
 
 figure(2)
+set(gca, 'FontSize', 20)
 tiledlayout(yy,xx); 
 nexttile
-imagesc(abs(recentered_dft(l)*w*recentered_dft(r).')); 
+imagesc(abs(recentered_dft(l).'*w*recentered_dft(r))); 
 title("FFT Weights: Raw", 'FontSize', 20); 
 xlabel("Input index", 'FontSize', 20); 
 ylabel("Output index", 'FontSize', 20); 
 nexttile
-imagesc(abs(recentered_dft(l)*P*w*recentered_dft(r).')); 
+imagesc(abs(recentered_dft(l).'*P*w*recentered_dft(r))); 
 title(["FFT Weights:";"Descrambled"], 'FontSize', 20); 
 xlabel("Input index", 'FontSize', 20); 
 ylabel("Output index", 'FontSize', 20); 
-colormap jet 
+colormap parula 
 c = colorbar;
 c.FontSize = 20;
 c.Layout.Tile = 'east'; 
@@ -106,6 +109,7 @@ desc = P*w;
 [u, sigma, v] = svd(desc); 
 
 figure(3);
+set(gca, 'FontSize', 20)
 tiledlayout(yy,xx);
 nexttile
 imagesc(u_r); 
@@ -117,7 +121,7 @@ imagesc(u);
 title(["Left SV"; "Descrambled"], 'FontSize', 20); 
 xlabel("Output index", 'FontSize', 20); 
 ylabel("Output index", 'FontSize', 20); 
-colormap jet 
+colormap parula
 c = colorbar;
 c.FontSize = 20;
 c.Layout.Tile = 'east';
@@ -127,9 +131,10 @@ end
 % clf reset; 
 
 figure(4)
-plot(diag(sigma_r), 'ro-'); 
+set(gca, 'FontSize', 20)
+plot(diag(sigma_r), 'r-', 'LineWidth',2); 
 hold on;
-plot(diag(sigma), 'bx-');
+plot(diag(sigma), 'b-', 'LineWidth', 2);
 legend('Raw', 'Descrambled');
 title('Comparing decay of singular values', 'FontSize', 20); 
 if pics
@@ -140,15 +145,15 @@ end
 figure(5)
 tiledlayout(yy,xx)
 nexttile
-plot(u_r(:,1), 'ro-');
+plot(u_r(:,1), 'r-', 'LineWidth',2);
 hold on;
-plot(u_r(:,2), 'bx-'); 
+plot(u_r(:,2), 'b-', 'LineWidth',2); 
 legend('First left singular vector', 'Second left singular vector'); 
 title("Singular vectors: Raw", 'FontSize', 20);
 nexttile
-plot(u(:,1), 'ro-');
+plot(u(:,1), 'r-', 'LineWidth',2);
 hold on;
-plot(u(:,2), 'bx-'); 
+plot(u(:,2), 'b-', 'LineWidth',2); 
 legend('First left singular vector', 'Second left singular vector'); 
 title("Singular vectors: Descrambled", 'FontSize', 20); 
 if pics
@@ -159,15 +164,15 @@ end
 figure(6)
 tiledlayout(yy,xx)
 nexttile
-plot(abs(fft(u_r(:,1))), 'ro-');
+plot(abs(fft(u_r(:,1))), 'r-', 'LineWidth',2);
 hold on;
-plot(abs(fft(u_r(:,2))), 'bx-'); 
+plot(abs(fft(u_r(:,2))), 'b-', 'LineWidth',2); 
 legend('First left singular vector FFT', 'Second left singular vector'); 
 title("Singular vector FFT: Raw", 'FontSize', 20);
 nexttile
-plot(abs(fft(u(:,1))), 'ro-');
+plot(abs(fft(u(:,1))), 'r-', 'LineWidth',2);
 hold on;
-plot(abs(fft(u(:,2))), 'bx-'); 
+plot(abs(fft(u(:,2))), 'b-', 'LineWidth',2); 
 legend('First left singular vector', 'Second left singular vector'); 
 title(["Singular vector FFT:"; "Descrambled"], 'FontSize', 20); 
 if pics

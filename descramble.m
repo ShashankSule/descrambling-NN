@@ -58,8 +58,8 @@ else
 end
    
 % Get derivative operator
-% [~,D]=fourdif(out_dim,1);
-D = finitediff(out_dim,1);
+[~,D]=fourdif(out_dim,2);
+% D = finitediff(out_dim,1);
 
 % Precompute some steps, scale, and move to GPU
 % SST=gpuArray(S*S'); 

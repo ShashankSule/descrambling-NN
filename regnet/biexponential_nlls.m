@@ -50,7 +50,7 @@ for SNR_index = 1:3
             plot(1:64, i_nd, 'r-', 'LineWidth', 3);
             hold on; 
             plot(65:128, i_b, 'r-', 'LineWidth', 3);
-            title(strcat(titlestring, ' SNR: ', num2str(SNR), ', $n = ', num2str(n), '$'), 'FontSize', 20, 'Interpreter','latex')
+            title(strcat(titlestring, ' SNR: ', num2str(sqrt(SNR)), ', $n = ', num2str(n), '$'), 'FontSize', 20, 'Interpreter','latex')
             set(gca, 'FontSize', 20);
             %ylim([ymin, ymax]);
             xlabel 'Index'
